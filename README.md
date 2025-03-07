@@ -1,11 +1,11 @@
-# Group "GROUP NAME"
+# Group "Len.in()"
 
 ## Members
-- s123456 LASTNAME FIRSTNAME
-- s123456 LASTNAME FIRSTNAME
-- s123456 LASTNAME FIRSTNAME
+- s339485 FERRARI FEDERICO
+- s345789 GIULIANI ADRIANO
 
-# Exercise "NAME OF EXERCISE"
+
+# Exercise "Rescuing surplus food"
 
 # Lab Journal
 
