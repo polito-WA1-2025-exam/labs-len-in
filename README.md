@@ -64,3 +64,5 @@ to the student.
 # Lab Journal
 
 (you may update this file to keep track of the progress of your group work, throughout the weeks)
+
+https://elite.polito.it/teaching/01txy-wa1/schedule
