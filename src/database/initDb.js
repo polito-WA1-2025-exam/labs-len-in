@@ -14,7 +14,7 @@ export function initDb() {
 }
 
 function row_to_store(row){
-    return new Store(row.ID, row.name, row.address, row.phone_number, row.type)
+    return new Store(row.id, row.name, row.address, row.phone, row.foodType)
 }
 
 function row_to_bag(row){
@@ -22,7 +22,7 @@ function row_to_bag(row){
     let products = {};
     for (let i = 0; i < items.length; i++) {
         let curItem = string_to_product(items[i]);
-        products.set(curItem.name, curItem.qty);
+        products[curItem.name] = curItem.qty;
     }
     return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.storeID, row.date, row.status)
 }
@@ -36,7 +36,10 @@ export function get_all_shops() {
         console.log(row);
         res.push(row_to_store(row));
         console.log(res);
+    }, (err, n) => {
+        console.log(res);
     });
+    return res;
 }
 
 export function get_all_bags() {
@@ -47,5 +50,8 @@ export function get_all_bags() {
         }
         console.log(row);
         res.push(row_to_bag(row));
+    }, (err, n) => {
+        console.log(res);
     })
+    return res;
 }
