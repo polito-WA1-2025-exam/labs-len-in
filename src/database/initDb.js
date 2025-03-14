@@ -24,7 +24,7 @@ function row_to_bag(row){
         let curItem = string_to_product(items[i]);
         products[curItem.name] = curItem.qty;
     }
-    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.storeID, row.date, row.status)
+    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.storeId, row.date, row.status)
 }
 
 export function get_all_shops() {

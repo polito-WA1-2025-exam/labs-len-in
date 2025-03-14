@@ -22,7 +22,7 @@ function Item(name, qty){
 }
 
 export function string_to_product(tuple){
-    const [name, qty] = tuple.split(" ");
+    const [name, qty] = tuple.replaceAll("(", "").replaceAll(")", "").split(" ");
     return new Item(name, Number(qty) || 1);
 }
 
