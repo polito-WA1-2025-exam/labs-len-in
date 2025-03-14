@@ -4,7 +4,7 @@ import sqlite from "sqlite3";
 
 export function initDb() {
     return new sqlite.Database(
-        "./database/database.db",
+        "./database/surplusfile.sqlite",
         sqlite.OPEN_READWRITE,
     );
 }
