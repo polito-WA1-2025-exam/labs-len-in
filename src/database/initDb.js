@@ -1,7 +1,51 @@
 "use strict"
-import sqlite from "sqlite3";
 
+import sqlite from "sqlite3";
+import {Bag, Store, Item, string_to_product} from "../backend/classes.js";
+
+const db = initDb();
 
 export function initDb() {
-    return new sqlite.Database("./database/surplusfile.sqlite", sqlite.OPEN_READWRITE, err => {if (err) throw err;});
+
+    return new sqlite.Database(
+        "../database/surplusfile.sqlite",
+        sqlite.OPEN_READWRITE
+    );
+}
+
+function row_to_store(row){
+    return new Store(row.ID, row.name, row.address, row.phone_number, row.type)
+}
+
+function row_to_bag(row){
+    const items = row.items.trim().split(",");
+    let products = {};
+    for (let i = 0; i < items.length; i++) {
+        let curItem = string_to_product(items[i]);
+        products.set(curItem.name, curItem.qty);
+    }
+    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.storeID, row.date, row.status)
+}
+
+export function get_all_shops() {
+    let res = [];
+    db.each("SELECT * FROM SHOP", (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(row);
+        res.push(row_to_store(row));
+        console.log(res);
+    });
+}
+
+export function get_all_bags() {
+    let res = [];
+    db.each("SELECT * FROM BAG", (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(row);
+        res.push(row_to_bag(row));
+    })
 }
