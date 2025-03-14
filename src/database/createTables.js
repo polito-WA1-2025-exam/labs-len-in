@@ -33,7 +33,7 @@ const createBag =
     "type VARCHAR(20) CHECK (type IN ('reserved', 'Available') ) NOT NULL," +
     "items VARCHAR(255) NOT NULL," +
     "date DATE NOT NULL," +
-    "size VARCHAR(1) CHECK (type IN ('S','M','L') ) NOT NULL," +
+    "size VARCHAR(1) CHECK (size IN ('S','M','L') ) NOT NULL," +
     "status VARCHAR(80) CHECK (status IN ('available', 'reserved') ) NOT NULL," +
     "price FLOAT NOT NULL," +
     "storeId INT NOT NULL," +
@@ -59,3 +59,5 @@ db.run(createUserShop, (err, rows) => {
     if(err) throw err;
     console.log("USERSHOP Table Successfully created");
 })
+
+db.close()

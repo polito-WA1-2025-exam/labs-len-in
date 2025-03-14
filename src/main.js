@@ -1,4 +1,8 @@
 "use strict";
 import {initDb} from "./database/initDb.js";
-let db = initDb();
-db.close()
+import {insertUsers} from "./database/insertUser.js";
+
+//let db = initDb();
+//db.close()
+
+insertUsers("prova@gmail.com", "prova", "password")
