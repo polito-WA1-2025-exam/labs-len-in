@@ -1,7 +1,7 @@
 "use strict"
 
 import sqlite from "sqlite3";
-import {Bag, Store, Item, string_to_product} from "../backend/classes.js";
+import {Bag, Shop, Item, string_to_product} from "../backend/classes.js";
 
 const db = initDb();
 
@@ -13,8 +13,8 @@ export function initDb() {
     );
 }
 
-function row_to_store(row){
-    return new Store(row.id, row.name, row.address, row.phone, row.foodType)
+function row_to_shop(row){
+    return new Shop(row.id, row.name, row.address, row.phone, row.foodType)
 }
 
 function row_to_bag(row){
@@ -24,7 +24,7 @@ function row_to_bag(row){
         let curItem = string_to_product(items[i]);
         products[curItem.name] = curItem.qty;
     }
-    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.storeId, row.date, row.status)
+    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.shopId, row.date, row.status)
 }
 
 export function get_all_shops() {
@@ -34,7 +34,7 @@ export function get_all_shops() {
             console.log(err);
         }
         console.log(row);
-        res.push(row_to_store(row));
+        res.push(row_to_shop(row));
         console.log(res);
     }, (err, n) => {
         console.log(res);

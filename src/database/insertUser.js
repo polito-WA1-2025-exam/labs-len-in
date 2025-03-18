@@ -1,12 +1,12 @@
 import { initDb } from "./initDb.js";
 
-export function insertUsers(email, username, password) {
+export function insertUser(user) {
     const db = initDb();
     const sql = "INSERT INTO USER (email, username, password) VALUES (?, ?, ?)"
 
-    db.run(sql,[email, username, password], (err) => {
+    db.run(sql,[user.email, user.username, user.password], (err) => {
         if (err) console.error("Error inserting user:", err);
-        else console.log("User inserted successfully");
+        else console.log("User inserted successfully: \n");
     });
     db.close()
 }
