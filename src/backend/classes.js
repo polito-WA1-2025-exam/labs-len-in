@@ -1,13 +1,15 @@
 "use strict";
 export {User, Shop, Item, Bag};
 
-function User(email, username, password) {
+function User(id, email, username, password) {
+    this.id = id;
     this.email = email;
     this.username = username;
     this.password = password;
 }
 
-function Shop(name, address, phone, foodType){
+function Shop(id, name, address, phone, foodType){
+    this.id = id;
     this.name = name;
     this.address = address;
     this.phone = phone;
@@ -25,22 +27,12 @@ export function string_to_product(tuple){
     return new Item(name, Number(qty) || 1);
 }
 
-const createBag =
-    "type VARCHAR(20) CHECK (type IN ('surprise', 'regular') ) NOT NULL," +
-    "items VARCHAR(255) NOT NULL," +
-    "date DATE NOT NULL," +
-    "size VARCHAR(1) CHECK (size IN ('S','M','L') ) NOT NULL," +
-    "status VARCHAR(80) CHECK (status IN ('available', 'reserved') ) NOT NULL," +
-    "price FLOAT NOT NULL," +
-    "storeId INT NOT NULL," +
-    "FOREIGN KEY (storeId) REFERENCES SHOP(id)" +
-    ");";
-
-function Bag(isSurprise, listItem, price, size, storeName, date, status){
+function Bag(id, isSurprise, listItem, price, size, storeId, date, status){
+    this.id = id;
     this.isSurprise = isSurprise;
-    this.listItem = listItem;
+    this.listItem = listItem; //array of Item
     this.price = price;
-    this.storeName = storeName;
+    this.storeId = storeId;
     this.date = date;
     this.size = size;
     this.status = status

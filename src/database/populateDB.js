@@ -84,5 +84,3 @@ db.serialize(() => {
         else console.log("Bags inserted successfully");
     });
 });
-
-db.close();

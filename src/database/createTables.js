@@ -58,6 +58,3 @@ db.run(createUserShop, (err, rows) => {
     if(err) throw err;
     console.log("USERSHOP Table Successfully created");
 })
-
-
-db.close()
