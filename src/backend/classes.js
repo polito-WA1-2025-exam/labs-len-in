@@ -16,7 +16,6 @@ function Shop(id, name, address, phone, foodType){
     this.foodType = foodType;
 }
 
-
 function Item(name, qty){
     this.name = name;
     this.qty = qty;
@@ -35,8 +34,9 @@ function Bag(id, isSurprise, listItem, price, size, storeId, date, status){
     this.storeId = storeId;
     this.date = date;
     this.size = size;
-    this.status = status
+    this.status = status;
 
+    
     this.addProduct = (name, qty)=>{
         listItem[name] = listItem[name] + qty || qty
     }
