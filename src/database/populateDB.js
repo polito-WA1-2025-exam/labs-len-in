@@ -2,6 +2,13 @@ import { initDb } from "./initDb.js";
 
 const db = initDb();
 
+const deleteTables = `
+    drop table USER;
+    drop table SHOP;
+    drop table USERSHOP;
+    drop table BAG
+`
+
 // Insert Users
 const insertUsers = `
     INSERT INTO USER (email, username, password) VALUES
@@ -34,7 +41,7 @@ const insertShops = `
 
 // Insert User-Shop Relationships
 const insertUserShops = `
-    INSERT INTO USERSHOP (userEmail, shopId) VALUES
+    INSERT INTO USERSHOP (userId, shopId) VALUES
     ('user1@example.com', 1),
     ('user2@example.com', 2),
     ('user3@example.com', 3),

@@ -63,6 +63,55 @@ to the student.
 
 # Lab Journal
 
-(you may update this file to keep track of the progress of your group work, throughout the weeks)
+## Struttura del Database
+
+### 1. `USER`
+Memorizza le credenziali e i dati essenziali di ciascun utente.
+
+| attributo | Tipo               | Vincoli                                  | Descrizione |
+|-----------|-------------------|-----------------------------------------|-------------|
+| id        | INTEGER           | PRIMARY KEY, AUTOINCREMENT             | Identificativo univoco dell'utente |
+| email     | VARCHAR(25)       | UNIQUE, NOT NULL                       | Email dell'utente (univoca) |
+| username  | VARCHAR(25)       | NOT NULL                                | Nome utente scelto |
+| password  | VARCHAR(255)      | NOT NULL                                | Password dell'utente |
+
+
+---
+
+### 2. `SHOP`
+Memorizza le informazioni sui negozi che offrono le bag.
+
+| attributo  | Tipo           | Vincoli       | Descrizione |
+|----------|---------------|---------------|-------------|
+| id       | INTEGER       | PRIMARY KEY, AUTOINCREMENT | Identificativo univoco del negozio |
+| name     | VARCHAR(20)   | NOT NULL      | Nome del negozio |
+| address  | VARCHAR(255)  | NOT NULL      | Indirizzo del negozio |
+| phone    | VARCHAR(20)   | NOT NULL      | Numero di telefono del negozio |
+| foodType | VARCHAR(30)   |               | Tipo di cibo venduto dal negozio |
+
+---
+
+### 3. `USERSHOP`
+Associa gli utenti ai negozi che gestiscono.
+
+| attributo  | Tipo  | Vincoli | Descrizione |
+|----------|------|----------------------------------|-------------|
+| userId   | INT  | FOREIGN KEY REFERENCES USER(id) | Identificativo dell'utente |
+| shopId   | INT  | FOREIGN KEY REFERENCES SHOP(id) | Identificativo del negozio |
+
+---
+
+### 4. `BAG`
+| attributo  | Tipo          | Vincoli                                                       | Descrizione                                |
+|----------|--------------|--------------------------------------------------------------|--------------------------------------------|
+| id       | INTEGER      | PRIMARY KEY, AUTOINCREMENT                                  | Identificativo univoco della borsa         |
+| type     | VARCHAR(20)  | CHECK (type IN ('surprise', 'regular')), NOT NULL           | Tipo di borsa (sorpresa o regolare)        |
+| items    | VARCHAR(255) | NOT NULL                                                    | Contenuto della borsa                      |
+| date     | DATE         | NOT NULL                                                    | Data di disponibilità della borsa          |
+| size     | VARCHAR(1)   | CHECK (size IN ('S','M','L')), NOT NULL                     | Dimensione della borsa (S, M, L)           |
+| status   | VARCHAR(80)  | CHECK (status IN ('available', 'reserved')), NOT NULL       | Stato della borsa (disponibile o riservata) |
+| price    | FLOAT        | NOT NULL                                                    | Prezzo della borsa                         |
+| storeId  | INT          | FOREIGN KEY REFERENCES SHOP(id), NOT NULL                   | Identificativo del negozio associato       |
+
 
 https://elite.polito.it/teaching/01txy-wa1/schedule

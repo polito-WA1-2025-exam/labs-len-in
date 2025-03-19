@@ -7,6 +7,7 @@ const createUser =
     "username VARCHAR(25) NOT NULL," +
     "password VARCHAR(255) NOT NULL" +
     ");";
+
 const createShop =
     "CREATE TABLE IF NOT EXISTS SHOP (" +
     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
