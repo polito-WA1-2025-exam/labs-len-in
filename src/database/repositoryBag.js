@@ -2,13 +2,8 @@ import { db } from "./initDb.js";
 import {Bag, string_to_product} from "../backend/classes.js";
 
 function row_to_bag(row){
-    const items = row.items.trim().split(",");
-    let products = {};
-    for (let i = 0; i < items.length; i++) {
-        let curItem = string_to_product(items[i]);
-        products[curItem.name] = curItem.qty;
-    }
-    return new Bag(row.id, row.type === "surprise", products, row.price, row.size, row.shopId, row.date, row.status)
+    const items = JSON.parse(row.items);
+    return new Bag(row.id, row.type === "surprise", items, row.price, row.size, row.shopId, row.date, row.status)
 }
 
 export async function get_all_bags(){
@@ -31,18 +26,21 @@ export async function get_all_bags(){
 
 export function insertBag(bag) {
     return new Promise((resolve, reject) => {
-        const sql = "INSERT INTO BAG(type, items, date, size, status, price, storeId) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        const sql =
+            "INSERT INTO BAG(type, items, date, size, status, price, storeId) VALUES (?, ?, ?, ?, ?, ?, ?)"
         const type = bag.isSurprise ? "surprise" : "regular";
-        db.run(sql,[type, bag.listItem.toString(), bag.date, bag.size, bag.status, bag.price, bag.storeId], (err, row) => {
-            if (err){
-                console.error("Error inserting bag:", err);
-                reject(err);
-            }
-            else {
-                resolve(row_to_bag(row));
-                console.log("Bag inserted successfully: \n");
-            }
-        });
+        console.log(JSON.stringify(bag.listItem))
+        db.run(sql,[type, JSON.stringify(bag.listItem), bag.date, bag.size, bag.status, bag.price, bag.storeId],
+            function (err) {
+                if (err) {
+                    console.error("Error inserting bag:", err);
+                    reject(err);
+                } else {
+                    console.log(this.lastID);
+                    bag.id = this.lastID;
+                    resolve(bag);
+                }
+            });
     })
 
 }
@@ -54,8 +52,7 @@ export function bought_Bag(bagId) {
             if (err){
                 reject(err);
                 console.error("Error updating bag:", err);
-            }
-            else {
+            } else {
                 resolve(row_to_bag(row));
                 console.log("Bag updated successfully: \n");
             }

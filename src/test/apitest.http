@@ -11,8 +11,8 @@ Content-Type: application/json
   "isSurprise": false,
   "listItem": { "pear": 5, "apple": 2 },
   "price": 50,
-  "storeId": null,
+  "storeId": 1,
   "date": 1741910400000,
   "size": "M",
-  "status": "reserved"
+  "status": "available"
 }

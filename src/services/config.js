@@ -43,7 +43,11 @@ function start_server(){
                 console.log(bag)
                 res.send(bag)
             }
-        )
+        ).catch(err => {
+            console.log(err)
+            //degub
+            res.status(500).send(err)
+        })
     })
 
 }
