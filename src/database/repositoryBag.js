@@ -3,7 +3,7 @@ import {Bag, string_to_product} from "../backend/classes.js";
 
 function row_to_bag(row){
     const items = JSON.parse(row.items);
-    return new Bag(row.id, row.type === "surprise", items, row.price, row.size, row.shopId, row.date, row.status)
+    return new Bag(row.id, row.type === "surprise", items, row.price, row.size, row.storeId, row.date, row.status)
 }
 
 export async function get_all_bags(){
@@ -45,18 +45,19 @@ export function insertBag(bag) {
 
 }
 
-export function bought_Bag(bagId) {
+export function buy_bag(bagId) {
     return new Promise((resolve, reject) => {
         const sql = "UPDATE BAG SET status = ? WHERE id = ?"
-        db.run(sql,['reserved', bagId], (err, row) => {
+        db.run(sql,['reserved', bagId], (err) => {
             if (err){
-                reject(err);
                 console.error("Error updating bag:", err);
-            } else {
-                resolve(row_to_bag(row));
-                console.log("Bag updated successfully: \n");
+                reject(err);
             }
         });
+        get_bag_by_id(bagId).then(bag => {
+            console.log("Bag updated successfully: \n");
+            resolve(bag);
+        })
     })
 
 }

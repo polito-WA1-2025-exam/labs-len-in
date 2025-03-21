@@ -4,7 +4,14 @@ import express from 'express'
 const apipath = "/api/v1/"
 
 const app = express()
-import {get_all_bags, get_bag_by_id, get_bags_by_store, insertBag} from "../database/repositoryBag.js";
+import {
+    buy_bag,
+    get_all_bags,
+    get_bag_by_id,
+    get_bags_by_store,
+    insertBag,
+    update_bag
+} from "../database/repositoryBag.js";
 import Json from "qs";
 
 function start_server(){
@@ -46,6 +53,18 @@ function start_server(){
         ).catch(err => {
             console.log(err)
             //degub
+            res.status(500).send(err)
+        })
+    })
+    app.get(apipath+'bags/buy/:id', (req, res) => {
+        console.log(req.params['id'])
+        buy_bag(req.params['id']).then(
+            bag => {
+                console.log(bag)
+                res.send(bag)
+            }
+        ).catch(err => {
+            console.log(err)
             res.status(500).send(err)
         })
     })
