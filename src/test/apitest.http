@@ -18,3 +18,52 @@ Content-Type: application/json
 }
 ###
 GET localhost:3000/api/v1/bags/buy/9
+
+
+###
+POST localhost:3000/api/v1/shops/new
+Content-Type: application/json
+
+{
+  "name": "prova",
+  "address": "via che guevara",
+  "phone": "3459204232",
+  "foodType": "sussone"
+}
+###
+PUT localhost:3000/api/v1/shops/update/42
+Content-Type: application/json
+
+{
+  "name": "prova updated",
+  "address": "via che guevara 2",
+  "phone": "34",
+  "foodType": "sus"
+}
+
+###
+GET localhost:3000/api/v1/users/id/1
+###
+GET localhost:3000/api/v1/users/email/user1@example.com
+###
+GET localhost:3000/api/v1/users/all
+###
+POST localhost:3000/api/v1/users/new
+Content-Type: application/json
+
+{
+  "email": "lenin00@gmail.com",
+  "username": "Len!n",
+  "password": "1234"
+}
+###
+PUT localhost:3000/api/v1/users/update/11
+Content-Type: application/json
+
+{
+  "email": "lenin01@gmail.com",
+  "username": "Lenìn",
+  "password": "1234"
+}
+###
+DELETE localhost:3000/api/v1/users/delete/11
