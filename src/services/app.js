@@ -28,7 +28,6 @@ import {
 
 import {get_user_by_id, get_user_by_email, updateUser, deleteUser, insertUser, get_all_user} from "../database/repositoryUser.js"
 
-import Json from "qs";
 import {Shop, User} from "../backend/classes.js";
 
 function start_server(){
@@ -154,18 +153,27 @@ function start_server(){
     app.get(apipath+'users/all', (req, res) => {
         get_all_user()
             .then(users => {res.send(users)})
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
 
     app.get(apipath+'users/id/:id', (req, res) => {
         get_user_by_id(req.params['id'])
             .then(user => res.send(user))
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
     app.get(apipath+'users/email/:email', (req, res) => {
         get_user_by_email(req.params['email'])
             .then(user => res.send(user))
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
 
     app.post(apipath+'users/new', (req, res) => {
@@ -177,7 +185,10 @@ function start_server(){
             .then(user => {
                 res.send(user)
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
     app.put(apipath+'users/update/:id', (req, res) => {
         if(!req.body.email || !req.body.username || !req.body.password){
@@ -188,7 +199,10 @@ function start_server(){
             .then(user => {
                 res.send(user)
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
     app.delete(apipath+'users/delete/:id', (req, res) => {
         let user = new User(req.params['id'], "", "", "")
@@ -196,9 +210,11 @@ function start_server(){
             .then(user => {
                 res.send(user)
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                return res.status(500).send(err)
+            })
     })
-
 }
 start_server()
 
