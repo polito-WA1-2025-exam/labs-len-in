@@ -1,5 +1,11 @@
 "use strict";
 import express from 'express'
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// Get the current file path and directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const apipath = "/api/v1/"
 
@@ -30,12 +36,17 @@ function start_server(){
     app.listen(3000, () => {
     console.log("Server Len.in() listening on port 3000")
 })
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+    })
+    //GET all bags
     app.get(apipath+'bags/all', (req, res) => {
         get_all_bags().then(bags => {
             console.log(bags)
             res.send(bags)
         })
     })
+    //GET bags by id
     app.get(apipath+'bags/:id', (req, res) => {
         console.log(req.params['id'])
         get_bag_by_id(req.params['id']).then(
@@ -45,6 +56,7 @@ function start_server(){
             }
         )
     })
+    //GET bags by status in (available, reserved) and by store
     app.get(apipath+'bags/:status/store/:id', (req, res) => {
         console.log(req.params['id'], req.params['status'])
         get_bags_by_store(req.params['id'], req.params['status']).then(
@@ -54,6 +66,7 @@ function start_server(){
             }
         )
     })
+    //POST a new bag
     app.post(apipath+'bags/new', (req, res) => {
         console.log(req.body)
         insertBag(req.body).then(
@@ -67,9 +80,25 @@ function start_server(){
             res.status(500).send(err)
         })
     })
+
+    //BUY a bag
     app.get(apipath+'bags/buy/:id', (req, res) => {
         console.log(req.params['id'])
         buy_bag(req.params['id']).then(
+            bag => {
+                console.log(bag)
+                res.send(bag)
+            }
+        ).catch(err => {
+            console.log(err)
+            res.status(500).send(err)
+        })
+    })
+
+    //UPDATE a bag
+    app.put(apipath+'bags/update/:id', (req, res) => {
+        console.log(req.params['id'])
+        update_bag(req.body).then(
             bag => {
                 console.log(bag)
                 res.send(bag)

@@ -7,9 +7,11 @@ export const db = initDb();
 
 export function initDb() {
 
-    return new sqlite.Database(
+    let db = new sqlite.Database(
         "../database/surplusfile.sqlite",
         sqlite.OPEN_READWRITE
     );
+    db.run("PRAGMA foreign_keys = ON;");
+    return db
 }
 

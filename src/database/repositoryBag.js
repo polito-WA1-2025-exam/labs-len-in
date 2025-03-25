@@ -66,13 +66,13 @@ export function update_bag(bag) {
     return new Promise((resolve, reject) => {
         const sql = "UPDATE BAG SET type = ?, items= ?, date= ?, size = ?, price = ? WHERE id = ?"
         const type = bag.isSurprise ? "surprise" : "regular";
-        db.run(sql,[type, bag.listItem.toString(), bag.date, bag.size, bag.price, bag.id], (err, row) => {
+        db.run(sql,[type, JSON.stringify(bag.listItem), bag.date, bag.size, bag.price, bag.id], (err, row) => {
             if (err){
                 reject(err);
                 console.error("Error updating bag", err);
             }
             else {
-                resolve(row_to_bag(row));
+                resolve(bag);
             }
         })
     })
