@@ -5,18 +5,17 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Navheader} from "./components/Navheader.jsx";
-import {ViewItems} from "./components/ViewItems.jsx";
+import {ViewStores} from "./components/ViewStores.jsx";
 
 function App() {
     const [count, setCount] = useState(0)
 
     return (
-        <div className="col justify-content-end">
-            <div className="row justify-content-center" style={{width: parent}}>
-                <Navheader/>
+        <div className="flex-column" property={{width: parent, height: parent, backgroundColor: "red"}}>
+            <Navheader/>
+            <div className="card-body mt-3" property="width: max-content;">
+                <ViewStores items={['Store1', 'Store2', 'Store3']}/>
             </div>
-
-            <ViewItems items={['item1', 'item2', 'item3']}/>
         </div>
     )
 }
